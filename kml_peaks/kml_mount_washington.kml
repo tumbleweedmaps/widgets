@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Style id="peakIconStyle">
+      <IconStyle>
+        <scale>1.2</scale>
+        <Icon>
+          <href>https://maps.google.com/mapfiles/kml/shapes/mountains.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Mount Washington</name>
+      <styleUrl>#peakIconStyle</styleUrl>
+      <description>Name: Mount Washington
+Coordinates: 44.27049, -71.30327
+elevation: 6286
+description: Mount Washington is the most dangerous small mountain on earth
+added: more</description>
+      <Point>
+        <coordinates>-71.30327,44.27049</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

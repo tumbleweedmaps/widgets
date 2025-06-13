@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Style id="peakIconStyle">
+      <IconStyle>
+        <scale>1.2</scale>
+        <Icon>
+          <href>https://maps.google.com/mapfiles/kml/shapes/mountains.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Mount Jefferson</name>
+      <styleUrl>#peakIconStyle</styleUrl>
+      <description>Name: Mount Jefferson
+Coordinates: 44.30423, -71.31683
+elevation: 5714
+description: Named for Thomas Jefferson
+added: know</description>
+      <Point>
+        <coordinates>-71.31683,44.30423</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

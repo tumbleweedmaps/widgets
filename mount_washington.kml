@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>Mount Washington</name>
+    <description><![CDATA[
+<p><b>Name:</b> Mount Washington</p>
+<p><b>Coordinates:</b> 44.27049, -71.30327</p>
+<p><b>Elevation:</b> 6286 ft</p>
+<p>Mount Washington is the most dangerous small mountain on Earth</p>
+    ]]></description>
+    <Point>
+      <coordinates>-71.30327,44.27049,6286</coordinates>
+    </Point>
+  </Placemark>
+</kml>

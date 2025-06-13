@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KML Generator - With Persistence</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 1em;
+    }
+    input, textarea {
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 0.5em;
+      display: block;
+      font-size: 1em;
+    }
+    button {
+      padding: 0.4em 1.2em;
+      margin-top: 1em;
+      font-size: 1em;
+    }
+    #outputScreen {
+      margin-top: 2em;
+      background-color: #f4f4f4;
+      padding: 1em;
+      border: 1px solid #ccc;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Single Peak KML Generator with Icon and Saved Inputs</h2>
+
+<label for="name">Peak Name:</label>
+<input type="text" id="name" placeholder="e.g. Mount Washington">
+
+<label for="inputLongitude">Longitude:</label>
+<input type="text" id="inputLongitude" placeholder="e.g. -71.30327">
+
+<label for="inputLatitude">Latitude:</label>
+<input type="text" id="inputLatitude" placeholder="e.g. 44.27049">
+
+<label for="inputElevation">Elevation (optional, ft):</label>
+<input type="text" id="inputElevation" placeholder="e.g. 6288">
+
+<label for="inputDescription">Description (optional):</label>
+<textarea id="inputDescription" rows="4" placeholder="e.g. The highest peak in the Northeastern United States."></textarea>
+
+<button id="btnSubmit">Generate KML</button>
+
+<div id="outputScreen"><pre><code id="kmlCode"></code></pre></div>
+
+<script type="module">
+  const fields = ['name', 'inputLongitude', 'inputLatitude', 'inputElevation', 'inputDescription'];
+
+  // Restore saved values on load
+  window.addEventListener('DOMContentLoaded', () => {
+    fields.forEach(id => {
+      const saved = localStorage.getItem(id);
+      if (saved !== null) {
+        document.getElementById(id).value = saved;
+      }
+    });
+  });
+
+  // Save values to localStorage on change
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', () => {
+      localStorage.setItem(id, el.value);
+    });
+  });
+
+  // Escape for safe rendering in HTML
+  const escapeHTML = (str) =>
+    str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  document.getElementById('btnSubmit').addEventListener('click', () => {
+    const name = document.getElementById('name').value.trim();
+    const lon = document.getElementById('inputLongitude').value.trim();
+    const lat = document.getElementById('inputLatitude').value.trim();
+    const elev = document.getElementById('inputElevation').value.trim();
+    const userDesc = document.getElementById('inputDescription').value.trim();
+
+    if (!name || !lon || !lat) {
+      alert("Please fill in Name, Longitude, and Latitude.");
+      return;
+    }
+
+    const coordinates = elev ? `${lon},${lat},${elev}` : `${lon},${lat}`;
+
+    const popupHTML = `
+<p><b>Name:</b> ${name}</p>
+<p><b>Coordinates:</b> ${lat}, ${lon}</p>
+${elev ? `<p><b>Elevation:</b> ${elev} ft</p>` : ""}
+${userDesc ? `<p>${userDesc}</p>` : ""}
+`.trim();
+
+    const rawKML = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Style id="peakIconStyle">
+      <IconStyle>
+        <scale>1.2</scale>
+        <Icon>
+          <href>https://maps.google.com/mapfiles/kml/shapes/mountains.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>${name}</name>
+      <styleUrl>#peakIconStyle</styleUrl>
+      <description><![CDATA[
+${popupHTML}
+      ]]></description>
+      <Point>
+        <coordinates>${coordinates}</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>`;
+
+    document.getElementById('kmlCode').innerHTML = escapeHTML(rawKML);
+  });
+</script>
+
+</body>
+</html>
