@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KML Generator</title>
+  <style>
+    * {
+      font-size: 1.5em;
+      font-family: monospace;
+    }
+    #outputScreen {
+      margin-top: 1em;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Input Section -->
+Name: <input type="text" id="name"><br>
+Longitude: <input type="text" id="inputLongitude"><br>
+Latitude: <input type="text" id="inputLatitude"><br>
+<button id="btnSubmit">Submit</button>
+
+<div id="outputScreen"></div>
+
+<script type="module">
+  const btn = document.getElementById('btnSubmit');
+  btn.addEventListener('click', () => {
+    // Input values
+    const name = document.getElementById('name').value.trim();
+    const lon = document.getElementById('inputLongitude').value.trim();
+    const lat = document.getElementById('inputLatitude').value.trim();
+
+    const output = `
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;kml xmlns="http://www.opengis.net/kml/2.2"&gt;
+  &lt;Placemark&gt;
+    &lt;name&gt;${name}&lt;/name&gt;
+    &lt;Point&gt;
+      &lt;coordinates&gt;${lon},${lat}&lt;/coordinates&gt;
+    &lt;/Point&gt;
+  &lt;/Placemark&gt;
+&lt;/kml&gt;
+    `;
+
+    document.getElementById('outputScreen').innerHTML = output;
+  });
+</script>
+<a href="./html_widgets/widgets_maine/widget_maine_0001.html">a</a>
+</body>
+</html>
