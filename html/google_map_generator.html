@@ -1,11 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Google Map Widget Generator</title>
+  <link rel="stylesheet" href="widget-style.css" />
+  <style>
+    body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  max-width: 800px;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+.button-row {
+  margin-top: 1.5rem;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+
+textarea#output {
+  margin-top: 2rem;
+  width: 100%;
+  height: 600px;
+  background-color: #111;
+  color: #d4d4d4;
+  border: 1px solid #333;
+  padding: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  white-space: pre;
+}
+  </style>
 </head>
 <body>
-    Google Maps Generators
+  <h1>Google Maps Widget Generator</h1>
+
+  <label for="input_headline">Headline</label>
+  <input type="text" id="input_headline" placeholder="Enter headline here">
+
+  <label for="input_googleMap">Google My Maps Embed URL</label>
+  <input type="text" id="input_googleMap" placeholder="Paste iframe src URL here">
+
+  <label for="input_description">Description</label>
+  <input type="text" id="input_description" placeholder="Write description here">
+
+  <div class="button-row">
+    <button id="btn_submit">Generate Widget</button>
+    <button id="btn_copy">Copy to Clipboard</button>
+    <span id="copy_status"></span>
+  </div>
+
+  <textarea id="output" readonly></textarea>
+
+  <script>
+    const btn_submit = document.getElementById('btn_submit');
+    const btn_copy = document.getElementById('btn_copy');
+    const output = document.getElementById('output');
+    const status = document.getElementById('copy_status');
+
+    btn_submit.addEventListener('click', () => {
+      const input_headline = document.getElementById('input_headline').value.trim();
+      const input_googleMap = document.getElementById('input_googleMap').value.trim();
+      const input_description = document.getElementById('input_description').value.trim();
+
+      const rawHTML = `
+<!-- Google Map Widget Model A: START -->
+<section class="google_map_widget_a" data-map-id="map-001">
+  <!-- Header -->
+  <div class="map_widget_header">
+    <h2>${input_headline}</h2>
+  </div>
+  <!-- Map -->
+  <div class="map_widget_iframe_container">
+    <iframe class="google_maps_iframes" src="${input_googleMap}" title="Custom Google Map" loading="lazy"></iframe>
+  </div>
+  <!-- Description -->
+  <div class="map_widget_description">
+    <p>${input_description}</p>
+  </div>
+  <!-- Footer CTA -->
+  <div class="map_widget_footer_cta">
+    <p>
+      This map was made with Google My Maps. Want your own customized travel map?
+      <a href="https://www.TumbleweedMaps.com/custom-google-my-maps">Click Here</a>
+    </p>
+  </div>
+</section>
+<!-- Google Map Widget Model A: END -->
+      `.trim();
+
+      output.value = rawHTML;
+      status.textContent = '';
+    });
+
+    btn_copy.addEventListener('click', () => {
+      output.select();
+      document.execCommand('copy');
+      status.textContent = 'Copied!';
+      setTimeout(() => status.textContent = '', 2000);
+    });
+  </script>
 </body>
 </html>

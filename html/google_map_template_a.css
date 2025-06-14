@@ -1,0 +1,51 @@
+/* Widget Output Styles (not applied here but for reference use) */
+.google_map_widget_a {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1rem;
+  border: 1px solid #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+  width: 90%;
+}
+
+.map_widget_header h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.map_widget_iframe_container {
+  height: 600px;
+  width: 100%;
+  margin: 1rem 0;
+  border: 1px solid #444;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.google_maps_iframes {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.map_widget_description p,
+.map_widget_footer_cta p {
+  margin: 1rem 0;
+  line-height: 1.6;
+  color: #cccccc;
+}
+
+.map_widget_footer_cta a {
+  color: #4ec9b0;
+  text-decoration: none;
+  border-bottom: 1px dashed #4ec9b0;
+}
+
+.map_widget_footer_cta a:hover {
+  text-decoration: underline;
+}
